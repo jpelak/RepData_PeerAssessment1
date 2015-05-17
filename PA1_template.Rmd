@@ -25,7 +25,7 @@ median(activityByDate$steps)
 ## What is the average daily activity pattern?
 ```{r averageDailyActivityPattern, echo=TRUE}
 activityByInterval <- aggregate(steps ~ interval, activityNoNA, mean)
-qplot(activityByInterval$interval, activityByInterval$steps, geom="bar", stat="identity")
+qplot(activityByInterval$interval, activityByInterval$steps, geom="line", stat="identity")
 activityByInterval[which.max(activityByInterval$steps),]
 ```
 
@@ -48,5 +48,5 @@ median(activityByDateImputed$steps)
 ```{r weekendsAndWeekdays, echo=TRUE}
 activityImputed$wend <- as.factor(ifelse(weekdays(as.Date(activityImputed$date)) %in% c("Saturday","Sunday"), "Weekend", "Weekday"))
 activityByIntervalWend <- aggregate(steps ~ interval+wend, activityImputed, mean)
-qplot(activityByIntervalWend$interval, activityByIntervalWend$steps, data=activityByIntervalWend, type="l", stat="identity", facets = .~wend)
+qplot(activityByIntervalWend$interval, activityByIntervalWend$steps, data=activityByIntervalWend, geom="line", stat="identity", facets = .~wend)
 ```
